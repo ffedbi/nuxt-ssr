@@ -1,20 +1,19 @@
 <template lang="pug">
-  h1  {{ user.name }}
+  section
+    h1 {{ user.name }}
+    hr
+    b {{user.email}}
 </template>
 
 <script>
 export default {
-  asyncData({params, error}) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        //resolve({
-        //  user: {
-        //    name: `Test user, id ${params.id}`
-        //  }
-        //})
-        reject(error(new Error('user non found')))
-      }, 1500)
-    })
+  async asyncData({params, error, $axios}) {
+    try {
+      const user = await $axios.$get(`https://jsonplaceholder.typicode.com/users/${params.id}`)
+      return {user}
+    } catch (e) {
+      error(e)
+    }
   },
   validate({params}) {
     console.log(params)
