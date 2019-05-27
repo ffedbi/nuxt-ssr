@@ -8,33 +8,39 @@
 
 <script>
 export default {
-  async asyncData({store, error}) {
+  async fetch({ store }) {
     try {
-      const users = await store.dispatch('users/fetchUsers')
-      return {users}
+      if (!store.getters["users/users"].length) {
+        await store.dispatch("users/fetchUsers");
+      }
     } catch (e) {
-      error(e)
+      error(e);
     }
   },
   data() {
     return {
-      pegeTatle: 'User page'
-    }
+      pegeTatle: "User page"
+    };
   },
   methods: {
     goTo(user) {
-      this.$router.push(`/users/${user.id}`)
+      this.$router.push(`/users/${user.id}`);
+    }
+  },
+  computed: {
+    users() {
+      return this.$store.getters["users/users"];
     }
   }
-}
+};
 </script>
 
 <style lang="scss">
-  ul {
-    text-align: left;
+ul {
+  text-align: left;
 
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 </style>
