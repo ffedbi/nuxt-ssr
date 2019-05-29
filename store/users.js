@@ -9,9 +9,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async fetchUsers({
-    commit
-  }) {
+  async fetchUsers({ commit }) {
     try {
       const users = this.$axios.$get('https://jsonplaceholder.typicode.com/users')
       commit('setUsers', users);

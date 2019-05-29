@@ -1,6 +1,6 @@
 <template lang="pug">
   section
-    h1 {{pegeTatle}}
+    h1 {{pageTitle}}
     ul
       li(v-for="user of users", :key="user.id")
         a(href="#" @click.prevent="goTo(user)") User {{user.name}} ({{user.email}})
@@ -8,18 +8,18 @@
 
 <script>
 export default {
-  async fetch({ store }) {
-    try {
-      if (!store.getters["users/users"].length) {
-        await store.dispatch("users/fetchUsers");
-      }
-    } catch (e) {
-      error(e);
-    }
-  },
+  // async fetch({ store, error }) {
+  //   try {
+  //     if (store.getters["users/users"].length === 0) {
+  //       await store.dispatch("users/fetchUsers");
+  //     }
+  //   } catch (e) {
+  //     error(e);
+  //   }
+  // },
   data() {
     return {
-      pegeTatle: "User page"
+      pageTitle: "Users page"
     };
   },
   methods: {
