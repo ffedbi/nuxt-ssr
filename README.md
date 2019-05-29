@@ -1,6 +1,6 @@
-# nuxt-theory
+# nuxt-blog
 
-> My exceptional Nuxt.js project
+> My impeccable Nuxt.js project
 
 ## Build Setup
 

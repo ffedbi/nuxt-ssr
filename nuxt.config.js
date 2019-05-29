@@ -1,6 +1,7 @@
-import pkg from './package'
+const pkg = require('./package')
 
-export default {
+
+module.exports = {
   mode: 'universal',
 
   /*
@@ -21,48 +22,46 @@ export default {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: 'blue' },
+  loading: { color: '#fff' },
 
   /*
   ** Global CSS
   */
   css: [
-    '@/node_modules/bootstrap/dist/css/bootstrap.min.css'
+    'element-ui/lib/theme-chalk/index.css'
   ],
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+		{ src: '@/plugins/element-ui', ssr: false }
   ],
 
   /*
   ** Nuxt.js modules
   */
   modules: [
+    // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
   ],
-
-  /**
-   * axios config
-   */
-  axios: {},
+  /*
+  ** Axios module configuration
+  */
+  axios: {
+    // See https://github.com/nuxt-community/axios-module#options
+  },
 
   /*
   ** Build configuration
   */
   build: {
+    transpile: [/^element-ui/],
+
     /*
     ** You can extend webpack config here
     */
     extend(config, ctx) {
-      config.module.rules.push({
-        test: /\.pug$/,
-        loader: 'pug-plain-loader',
-        options: {
-          data: {}
-        }
-      }
-      )}
+    }
   }
 }
