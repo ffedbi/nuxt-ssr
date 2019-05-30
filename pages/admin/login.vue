@@ -35,28 +35,37 @@
 		},
 		methods: {
 			onSubmit() {
-				console.log('submit');
-				this.$refs.form.validate((valid) => {
+				this.$refs.form.validate(async valid => {
 					if (valid) {
 						this.loading = true;
 
-						const formData = {
-							postId: '',
-							name: this.controls.name,
-							text: this.controls.text
-						};
-
 						try {
-							setTimeout(() => {
-								this.$emit('created');
-								this.$message.success('Комментарий добавлен')
-							}, 2000)
+							const formData = {
+								postId: '',
+								name: this.controls.login,
+								text: this.controls.password
+							};
+
+							await this.$store.dispatch('auth/login', formData);
+							this.$router.push('/admin');
 						} catch (e) {
 							this.loading = false;
 						}
 					}
 				});
 			},
+		},
+		mounted() {
+			const {message} = this.$route.query;
+
+			switch (message) {
+				case 'login':
+					this.$message.info('Войдите в систему');
+					break;
+				case 'logout':
+					this.$message.success('Вы успешно вышли из системы');
+					break;
+			}
 		}
 	}
 </script>
