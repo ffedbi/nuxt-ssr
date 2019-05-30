@@ -19,8 +19,8 @@
 			p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque dolorem eius est mollitia officiis pariatur soluta? Ducimus error et hic impedit officiis perspiciatis quia repudiandae!
 			p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque dolorem eius est mollitia officiis pariatur soluta? Ducimus error et hic impedit officiis perspiciatis quia repudiandae!
 		footer
-			comment-form
-			.comments(v-if="false")
+			comment-form(v-if="canAddComment" @created="createCommentHandler")
+			.comments(v-if="true")
 				comment(v-for="(comment, index) in 4" :comment="comment" :key="index")
 			.text-center(v-else) Комментариев нет
 </template>
@@ -34,6 +34,16 @@
 		validate({params}) {
 			console.log(params.id);
 			return !!params.id;
+		},
+		data() {
+			return {
+				canAddComment: true
+			}
+		},
+		methods: {
+			createCommentHandler() {
+				this.canAddComment = false;
+			}
 		}
 	}
 </script>
