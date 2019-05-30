@@ -5,7 +5,17 @@
 
 <script>
 	export default {
-		name: "empty"
+		name: "empty",
+		computed: {
+			error() {
+				return this.$store.getters.error;
+			}
+		},
+		watch: {
+			error(value) {
+				this.$message.error(value)
+			}
+		}
 	}
 </script>
 
@@ -16,6 +26,6 @@
 		align-items: center;
 
 		width: 100%;
-		padding-top: 4rem;
+		height: 100vh;
 	}
 </style>

@@ -19,7 +19,8 @@
 
 <script>
 	export default {
-		name: "app-aside"
+		name: "app-aside",
+		middleware: ['admin-auth']
 	}
 </script>
 
