@@ -41,7 +41,6 @@
 
 						try {
 							const formData = {
-								postId: '',
 								name: this.controls.login,
 								text: this.controls.password
 							};
