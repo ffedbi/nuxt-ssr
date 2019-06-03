@@ -41,8 +41,8 @@
 
 						try {
 							const formData = {
-								name: this.controls.login,
-								text: this.controls.password
+								login: this.controls.login,
+								password: this.controls.password
 							};
 
 							await this.$store.dispatch('auth/login', formData);
@@ -63,6 +63,9 @@
 					break;
 				case 'logout':
 					this.$message.success('Вы успешно вышли из системы');
+					break;
+				case 'session':
+					this.$message.warning('Время сессии истекло. Зайдите заново');
 					break;
 			}
 		}

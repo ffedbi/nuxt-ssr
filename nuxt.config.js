@@ -36,7 +36,8 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-		{ src: '@/plugins/globals', ssr: false }
+		{ src: '@/plugins/globals', ssr: false },
+		'@/plugins/axios'
   ],
 
   /*
