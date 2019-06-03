@@ -1,8 +1,8 @@
-const {Router} = require('express');
-const {create} = require('../controllers/comment.controller');
-const router = Router();
+const {Router} = require('express')
+const {create} = require('../controllers/comment.controller')
+const router = Router()
 
 // /api/comment
-router.post('/', create);
+router.post('/', create)
 
-module.exports = router;
+module.exports = router
