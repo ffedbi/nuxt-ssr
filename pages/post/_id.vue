@@ -8,7 +8,7 @@
 			.post__info
 				small
 					i.el-icon-time
-					| {{ new Date(post.date).toLocaleString() }}
+					| {{ post.date | date }}
 				small
 					i.el-icon-view
 					| {{ post.views }}
@@ -17,9 +17,9 @@
 		main.post__content
 			vue-markdown {{ post.text }}
 		footer
-			comment-form(v-if="canAddComment" @created="createCommentHandler")
+			comment-form(v-if="canAddComment" @created="createCommentHandler" :post-id="post._id")
 			.comments(v-if="post.comments.length")
-				comment(v-for="(comment, index) in post.comments" :comment="comment" :key="index")
+				comment(v-for="comment in post.comments" :comment="comment" key="comment._id")
 			.text-center(v-else) Комментариев нет
 </template>
 
@@ -29,6 +29,11 @@
 
 	export default {
 		components: {CommentForm, Comment},
+		head() {
+			return {
+				title: `${this.post.title} | ${process.env.appName}`
+			}
+		},
 		async asyncData({store, params}) {
 			const post = await store.dispatch('post/fetchById', params.id);
 			await store.dispatch('post/addView', post);
@@ -45,7 +50,8 @@
 			}
 		},
 		methods: {
-			createCommentHandler() {
+			createCommentHandler(comment) {
+				this.post.comments.unshift(comment);
 				this.canAddComment = false;
 			}
 		}

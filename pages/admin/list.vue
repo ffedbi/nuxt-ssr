@@ -4,7 +4,7 @@
 		el-table-column(label='Дата')
 			template(slot-scope='{row: {date}}')
 				i.el-icon-time
-				span(style='margin-left: 10px') {{ new Date(date).toLocaleString() }}
+				span(style='margin-left: 10px') {{ date | date }}
 		el-table-column(label='Просмотры', prop="views")
 			template(slot-scope='{row: {views}}')
 				i.el-icon-view
@@ -26,6 +26,9 @@
 		name: "list",
 		layout: 'admin',
 		middleware: ['admin-auth'],
+		head: {
+			title: `Все посты | ${process.env.appName}`
+		},
 		async asyncData({store}) {
 			const posts = await store.dispatch('post/fetchAdmin');
 			return {posts};

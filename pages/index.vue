@@ -9,7 +9,7 @@
 
 	export default {
 		head: {
-			title: 'Home'
+			title: `Главная | ${process.env.appName}`
 		},
 		components: {Post},
 		async asyncData({store}) {

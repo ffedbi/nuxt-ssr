@@ -1,9 +1,3 @@
-const posts = [
-	{title: 'Post 1', date: new Date(), views: 22, comments: [1, 2], _id: '123'},
-	{title: 'Post 2', date: new Date(), views: 22, comments: [1, 2], _id: '132'},
-	{title: 'Post 3', date: new Date(), views: 22, comments: [1, 2], _id: '321'},
-]
-
 export const state = () => ({});
 
 export const getters = {};
@@ -82,4 +76,12 @@ export const actions = {
 			throw e;
 		}
 	},
+	async getAnalytics({commit}) {
+		try {
+			return await this.$axios.$get(`api/post/admin/get/analytics`)
+		} catch (e) {
+			commit('setError', e, {root: true});
+			throw e;
+		}
+	}
 };

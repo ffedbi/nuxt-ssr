@@ -23,6 +23,9 @@
 		name: "create",
 		layout: 'admin',
 		middleware: ['admin-auth'],
+		head: {
+			title: `Новый пост | ${process.env.appName}`
+		},
 		data() {
 			return {
 				loading: false,
@@ -44,7 +47,6 @@
 		},
 		methods: {
 			handleImageChange(file, fileList) {
-				console.log(file.raw);
 				this.image = file.raw;
 			},
 			onSubmit() {

@@ -4,7 +4,7 @@
 			h3 {{ post.title }}
 			small
 				i.el-icon-time
-				|  {{ new Date(post.date).toLocaleString() }}
+				|  {{ post.date | date }}
 		.post__body
 			img(:src="post.imageUrl" alt="post image").post__img
 		footer.post__footer
