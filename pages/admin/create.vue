@@ -2,7 +2,7 @@
 	el-form(:model='controls', :rules='rules', ref='form' @submit.native.prevent="onSubmit")
 		h2.mb Создать пост
 		el-form-item(label='Название поста' prop="title")
-			el-input(v-model.trim='controls.title')
+			el-input(v-model='controls.title')
 		el-form-item(label='Текст в формате md. или .html' prop="text")
 			el-input(type="textarea" :rows="10" resize="none" v-model='controls.text')
 		el-button(type="success" plain @click="previewDialog = true").mb Предпросмотр

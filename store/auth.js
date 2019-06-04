@@ -1,3 +1,18 @@
+import Cookie from 'cookie';
+import Cookies from 'js-cookie';
+import jwtDecode from 'jwt-decode';
+
+function isJWTToken(token) {
+	if (!token) {
+		return false
+	}
+
+	const jwtData =jwtDecode(token) || {};
+	const expires = jwtData.exp || 0;
+
+	return (new Date().getTime() / 1000) < expires
+}
+
 export const state = () => ({
 	token: null,
 });
@@ -28,11 +43,13 @@ export const actions = {
 	},
 	setToken({commit}, token) {
 		this.$axios.setToken(token, 'Bearer');
-		commit('setToken', token)
+		commit('setToken', token);
+		Cookies.set('jwt-token', token)
 	},
 	logout({commit}) {
 		this.$axios.setToken(false);
-		commit('clearToken')
+		commit('clearToken');
+		Cookies.remove('jwt-token')
 	},
 	async createUser({commit}, formData) {
 		try {
@@ -42,8 +59,15 @@ export const actions = {
 			throw e;
 		}
 	},
-	autoLogin() {
+	autoLogin({dispatch}) {
 		const cookieStr = process.browser ? document.cookie : this.app.context.req.headers.cookie;
-		console.log(cookieStr)
+		const cookies = Cookie.parse(cookieStr || '') || {};
+		const token = cookies['jwt-token'];
+
+		if (isJWTToken(token)) {
+			dispatch('setToken', token)
+		} else {
+			dispatch('logout')
+		}
 	}
 };

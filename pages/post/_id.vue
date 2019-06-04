@@ -2,26 +2,24 @@
 	article.post
 		header.post__header
 			.post__title
-				h1 Title
+				h1 {{ post.title }}
 				nuxt-link(tag="a" to="/")
 					i.el-icon-back
 			.post__info
 				small
 					i.el-icon-time
-						| {{ new Date().toLocaleString() }}
+					| {{ new Date(post.date).toLocaleString() }}
 				small
 					i.el-icon-view
-						| 42
+					| {{ post.views }}
 			.post__img
-				img(:src="`http://picsum.photos/750/400?r=${Math.random()}`" alt="post image").post__img
+				img(:src="post.imageUrl" :alt="post.title").post__img
 		main.post__content
-			p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque dolorem eius est mollitia officiis pariatur soluta? Ducimus error et hic impedit officiis perspiciatis quia repudiandae!
-			p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque dolorem eius est mollitia officiis pariatur soluta? Ducimus error et hic impedit officiis perspiciatis quia repudiandae!
-			p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque dolorem eius est mollitia officiis pariatur soluta? Ducimus error et hic impedit officiis perspiciatis quia repudiandae!
+			vue-markdown {{ post.text }}
 		footer
 			comment-form(v-if="canAddComment" @created="createCommentHandler")
-			.comments(v-if="true")
-				comment(v-for="(comment, index) in 4" :comment="comment" :key="index")
+			.comments(v-if="post.comments.length")
+				comment(v-for="(comment, index) in post.comments" :comment="comment" :key="index")
 			.text-center(v-else) Комментариев нет
 </template>
 
@@ -31,8 +29,14 @@
 
 	export default {
 		components: {CommentForm, Comment},
+		async asyncData({store, params}) {
+			const post = await store.dispatch('post/fetchById', params.id);
+			await store.dispatch('post/addView', post);
+			return {
+				post: {...post, views: ++post.views}
+			}
+		},
 		validate({params}) {
-			console.log(params.id);
 			return !!params.id;
 		},
 		data() {
