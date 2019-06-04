@@ -1,25 +1,32 @@
 <template lang="pug">
 	el-card(shadow="hover" :body-style="{padding: 0}").post
 		header(slot="header").post__header
-			h3 Post title
+			h3 {{ post.title }}
 			small
 				i.el-icon-time
-				|  {{ new Date().toLocaleString() }}
+				|  {{ post.date | date }}
 		.post__body
-			img(:src="`http://picsum.photos/750/400?r=${Math.random()}`" alt="post image").post__img
+			img(:src="post.imageUrl" alt="post image").post__img
 		footer.post__footer
 			el-button(round @click="openPost") Открыть пост
 			span
 				i.el-icon-message
-				|  13
+				|  {{ post.comments.length }}
 </template>
 
 <script>
 	export default {
 		name: "post",
+		props: {
+			post: {
+				type: Object,
+				required: true
+			}
+		},
 		methods: {
 			openPost() {
-				this.$router.push(`/post/${this.post.id}`)
+				const id = this.post._id;
+				this.$router.push(`/post/${id}`);
 			}
 		}
 	}

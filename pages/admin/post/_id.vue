@@ -11,7 +11,7 @@
 			.mb
 				small.mr
 					i.el-icon-time
-					span {{ new Date(post.date).toLocaleString() }}
+					span {{ post.date | date }}
 				small
 					i.el-icon-view
 					span {{ post.views }}
@@ -26,7 +26,7 @@
 		middleware: ['admin-auth'],
 		head() {
 			return {
-				title: `Пост | ${this.post.title}`
+				title: `${this.post.title} | ${process.env.appName}`
 			}
 		},
 		validate({params}) {
@@ -71,6 +71,9 @@
 				});
 			},
 		},
+		mounted() {
+			this.controls.text = this.post.text;
+		}
 	}
 </script>
 

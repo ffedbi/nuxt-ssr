@@ -8,7 +8,7 @@
 </template>
 
 <script>
-	import AppAside from "../pages/admin/app-aside";
+	import AppAside from "../components/admin/app-aside";
 	export default {
 		name: "admin",
 		components: {AppAside},

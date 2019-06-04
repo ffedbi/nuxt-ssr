@@ -1,17 +1,22 @@
 <template lang="pug">
 	el-card.comment
 		.comment__header
-			h6 Person name
+			h6 {{ comment.name }}
 			span
 				i.el-icon-time
-				| {{ new Date().toLocaleString() }}
-		.comment__text Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam et fugit quod. Cupiditate doloremque, ipsam!
+				| {{ comment.date | date }}
+		.comment__text {{ comment.text }}
 </template>
 
 <script>
 	export default {
 		name: "comment",
-		props: ['comment']
+		props: {
+			comment: {
+				type: Object,
+				required: true
+			}
+		}
 	}
 </script>
 
