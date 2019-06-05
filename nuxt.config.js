@@ -71,6 +71,12 @@ module.exports = {
   	appName: 'SSR Blog'
 	},
 
+	generate: {
+		minify: {
+			collapseWhitespace: false
+		}
+	},
+
   /*
   ** Build configuration
   */
