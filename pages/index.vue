@@ -9,7 +9,11 @@
 
 	export default {
 		head: {
-			title: `Главная | ${process.env.appName}`
+			title: `Главная | ${process.env.appName}`,
+			meta: [
+				{hid: 'homepage', name: 'description', content: 'js блог'},
+				{hid: 'homepage', name: 'keywords', content: 'js, блог, nuxt'}
+			]
 		},
 		components: {Post},
 		async asyncData({store}) {

@@ -31,7 +31,11 @@
 		components: {CommentForm, Comment},
 		head() {
 			return {
-				title: `${this.post.title} | ${process.env.appName}`
+				title: `${this.post.title} | ${process.env.appName}`,
+				meta: [
+					{hid: `post-${this.post._id}`, name: 'description', content: this.post.title},
+					{hid: `post-${this.post._id}`, name: 'keywords', content: 'post, пост, javascript'}
+				]
 			}
 		},
 		async asyncData({store, params}) {

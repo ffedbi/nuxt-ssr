@@ -1,5 +1,4 @@
-const pkg = require('./package')
-
+const pkg = require('./package');
 
 module.exports = {
 	mode: 'universal',
@@ -12,7 +11,8 @@ module.exports = {
 		meta: [
 			{charset: 'utf-8'},
 			{name: 'viewport', content: 'width=device-width, initial-scale=1'},
-			{hid: 'description', name: 'description', content: pkg.description}
+			{hid: 'description', name: 'description', content: 'Блог написан с использованием SSR'},
+			{hid: 'keywords', name: 'keywords', content: 'js, javascript, ssr, blog'}
 		],
 		link: [
 			{rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
