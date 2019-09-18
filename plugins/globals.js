@@ -7,5 +7,5 @@ import DateFilter from '../common/filters/date.filter'
 
 Vue.use(Element, {locale});
 Vue.component('vue-markdown', VueMarkdown);
-// Vue.filter('date', DateFilter);
+Vue.filter('date', DateFilter);
 
