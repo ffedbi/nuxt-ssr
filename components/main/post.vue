@@ -34,6 +34,7 @@
 
 <style scoped lang="scss">
 	.post {
+    max-width: 610px;
 		margin-bottom: 1.5rem;
 
 		&__header {
